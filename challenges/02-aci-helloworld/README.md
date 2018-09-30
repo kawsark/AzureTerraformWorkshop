@@ -9,7 +9,7 @@ There are two docker containers that will be deployed:
 - [Hello World](https://github.com/Azure-Samples/aci-helloworld)
     - A simple NodeJS web application that displays a message.
     - Hosted on [Dockerhub](https://hub.docker.com/r/microsoft/aci-helloworld/)
-- [Sidecar](https://github.com/Azure-Samples/aci-tutorial-sidecar) 
+- [Sidecar](https://github.com/Azure-Samples/aci-tutorial-sidecar)
     - A simple watchdog script that calls the Hello World application every 3 seconds.
     - Hosted on [Dockerhub](https://hub.docker.com/r/microsoft/aci-tutorial-sidecar/)
 
@@ -104,6 +104,7 @@ Terraform has been successfully initialized!
 ```
 
 Running a `plan` should look something like this:
+- Note: if the value of your `username` variable is too long you may get an error: `Error: azurerm_storage_account.main: name can only consist of lowercase letters and numbers, and must be between 3 and 24 characters long`
 
 ```sh
 terraform plan

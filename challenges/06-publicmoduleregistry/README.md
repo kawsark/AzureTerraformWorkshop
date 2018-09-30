@@ -4,11 +4,52 @@
 
 In this challenge, you will take a look at the public [Module Registry](https://registry.terraform.io/) and create a Virtual Machine from verified ![](../../img/2018-05-14-07-27-11.png) Public Modules.
 
+So far we have been using Azure CLI account credentials for Terraform the Terraform Azure provider. In this challenge we will authenticate using a [Service Principal](https://www.terraform.io/docs/providers/azurerm/authenticating_via_service_principal.html) instead.
+
 ## How to
+
+### Create Azure Service Principal
+
+- From the Cloud Shell, locate the correct Subscription (you may only have one) you want to create a Service Principal for:
+```
+az account list
+```
+- Note the `id` and proceed with the commands below. We will create a Service Principal with Contributor rights and save the details in a file.
+```
+export subscription_id=<id-from-az-account-list-command>
+az account set --subscription=${subscription_id}
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/${subscription_id}" > service_principal.txt
+```
+- You may get the message `Retrying role assignment creation:` a few times. Once completed view the contents of `service_principal.txt` file, you should see a json file with the new credentials:
+```
+kawsar@Azure:~/AzureWorkChallenges/challenge06$ cat service_principal.txt
+{
+  "appId": "7ebbffeb-####-####-####-#############",
+  "displayName": "azure-cli-2018-09-30-16-19-19",
+  "name": "http://azure-cli-2018-09-30-16-19-19",
+  "password": "56a6c9ca-####-####-####-#############",
+  "tenant": "0e3e2e88-####-####-####-#############"
+}
+```
+
+- We will set [4 environment variables](https://www.terraform.io/docs/providers/azurerm/#testing) that will allow terraform to authenticate to Azure using Service Principal credentials:
+  - ARM_SUBSCRIPTION_ID - The ID of the Azure Subscription in which to run the Acceptance Tests.
+  - ARM_CLIENT_ID - The Client ID of the Service Principal.
+  - ARM_CLIENT_SECRET - The Client Secret associated with the Service Principal.
+  - ARM_TENANT_ID - The Tenant ID to use.
+
+- Issue the commands below to export these variables in your Azure Cloud shell:
+```
+export ARM_SUBSCRIPTION_ID=${subscription_id}
+export ARM_CLIENT_ID=$(cat service_principal.txt | jq -r .appId)
+export ARM_CLIENT_SECRET=$(cat service_principal.txt | jq -r .password)
+export ARM_TENANT_ID=$(cat service_principal.txt | jq -r .tenant)
+```
+Now we are all set to proceed with the remaining steps in this challenge!
 
 ### Navigate the Public Module Registry
 
-Open your browser and navigate to the [Module Registry](https://registry.terraform.io/). 
+Open your browser and navigate to the [Module Registry](https://registry.terraform.io/).
 
 Search for "Compute" which will yield all compute resources in the registry.
 
