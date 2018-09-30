@@ -8,7 +8,7 @@ So far we have been using Azure CLI account credentials for Terraform the Terraf
 
 ## How to
 
-### Create Azure Service Principal
+### Setup Azure Service Principal
 
 - From the Cloud Shell, locate the correct Subscription (you may only have one) you want to create a Service Principal for:
 ```
@@ -45,7 +45,9 @@ export ARM_CLIENT_ID=$(cat service_principal.txt | jq -r .appId)
 export ARM_CLIENT_SECRET=$(cat service_principal.txt | jq -r .password)
 export ARM_TENANT_ID=$(cat service_principal.txt | jq -r .tenant)
 ```
-Now we are all set to proceed with the remaining steps in this challenge!
+- Verify the above variables are set correctly: `env | grep ARM_`. You should see the above 4 variables set with Service Principal attributes. If so, we are all set to proceed with the remaining steps in this challenge!
+  - If you see an empty output, please rerun the export commands above.
+  - If any of the values are empty, please check the contents of `service_principal.txt` file.
 
 ### Navigate the Public Module Registry
 
@@ -175,10 +177,8 @@ module "windowsservers" {
 
 Run a `terraform init` and `terraform plan` to verify that all the resources look correct.
 
-When running a plan you may run into the following error:
+- Note: when running a plan, if you see the following error, please ensure you have completed the steps in **Setup Azure Service Principal** section.
 ![](../../img/2018-06-07-16-23-29.png)
-
-To get past this, simply run the `az login` command and follow the prompts.
 
 > Note: Take a minute to analyse why you needed to run another `terraform init` command before you could run a plan.
 
