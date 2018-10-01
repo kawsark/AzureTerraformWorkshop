@@ -23,7 +23,7 @@ resource "azurerm_storage_share" "main" {
 
 # Linux Container
 resource "azurerm_container_group" "main" {
-  name                = "aci-helloworld"
+  name                = "${var.username}-aci-helloworld"
   location            = "${azurerm_resource_group.main.location}"
   resource_group_name = "${azurerm_resource_group.main.name}"
   ip_address_type     = "public"
@@ -67,7 +67,7 @@ resource "azurerm_container_group" "main" {
 
 # Windows Container
 resource "azurerm_container_group" "windows" {
-  name                = "aci-iis"
+  name                = "${var.username}-aci-iis"
   location            = "${azurerm_resource_group.main.location}"
   resource_group_name = "${azurerm_resource_group.main.name}"
   ip_address_type     = "public"
@@ -89,7 +89,7 @@ resource "azurerm_container_group" "windows" {
 }
 
 resource "azurerm_container_group" "windows2" {
-  name                = "aci-iis"
+  name                = "${var.username}-aci-iis"
   location            = "${azurerm_resource_group.main.location}"
   resource_group_name = "${azurerm_resource_group.main.name}"
   ip_address_type     = "public"
