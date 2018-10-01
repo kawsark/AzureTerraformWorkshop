@@ -1,10 +1,10 @@
 variable "username" {
-  default = "myusername"
+  default = "${var.myusername}"
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "aci-helloworld"
-  location = "eastus"
+  name     = "${var.resourcegroup}"
+  location = "${var.location}"
 }
 
 resource "azurerm_storage_account" "main" {
@@ -33,8 +33,8 @@ resource "azurerm_container_group" "main" {
   container {
     name   = "helloworld"
     image  = "microsoft/aci-helloworld"
-    cpu    = "0.5"
-    memory = "1.5"
+    cpu    = "${var.cpu}"
+    memory = "${var.memory}"
     port   = "80"
 
     environment_variables {
@@ -55,12 +55,13 @@ resource "azurerm_container_group" "main" {
   container {
     name   = "sidecar"
     image  = "microsoft/aci-tutorial-sidecar"
-    cpu    = "0.5"
-    memory = "1.5"
+    cpu    = "${var.cpu}"
+    memory = "${var.memory}"
   }
 
   tags {
-    environment = "testing"
+    environment = "${var.environment}"
+    owner = "${var.owner}
   }
 }
 
@@ -75,12 +76,13 @@ resource "azurerm_container_group" "windows" {
   container {
     name   = "dotnetsample"
     image  = "microsoft/iis"
-    cpu    = "0.5"
-    memory = "1.5"
+    cpu    = "${var.cpu}"
+    memory = "${var.memory}"
     port   = "80"
   }
 
   tags {
-    environment = "testing"
+    environment = "${var.environment}"
+    owner = "${var.owner}
   }
 }
