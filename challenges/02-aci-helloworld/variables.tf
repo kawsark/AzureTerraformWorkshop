@@ -1,3 +1,6 @@
+variable "username" {
+  default = "myusername"
+}
 variable "owner" {
   description = "User responsible for this cloud environment, resources will be tagged with this"
 }
