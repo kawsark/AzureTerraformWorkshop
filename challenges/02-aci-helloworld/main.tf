@@ -87,3 +87,25 @@ resource "azurerm_container_group" "windows" {
     owner = "${var.owner}"
   }
 }
+
+resource "azurerm_container_group" "windows2" {
+  name                = "aci-iis"
+  location            = "${azurerm_resource_group.main.location}"
+  resource_group_name = "${azurerm_resource_group.main.name}"
+  ip_address_type     = "public"
+  dns_name_label      = "aci-iis-${var.username}"
+  os_type             = "windows"
+
+  container {
+    name   = "dotnetsample"
+    image  = "microsoft/iis"
+    cpu    = "${var.cpu}"
+    memory = "${var.memory}"
+    port   = "80"
+  }
+
+  tags {
+    environment = "${var.environment}"
+    owner = "${var.owner}"
+  }
+}
