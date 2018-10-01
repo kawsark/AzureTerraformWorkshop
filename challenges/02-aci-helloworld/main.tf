@@ -1,7 +1,3 @@
-variable "username" {
-  default = "${var.myusername}"
-}
-
 resource "azurerm_resource_group" "main" {
   name     = "${var.resourcegroup}"
   location = "${var.location}"
