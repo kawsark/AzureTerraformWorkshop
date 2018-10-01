@@ -21,6 +21,7 @@ resource "azurerm_storage_share" "main" {
   quota                = 1
 }
 
+# Linux Container
 resource "azurerm_container_group" "main" {
   name                = "aci-helloworld"
   location            = "${azurerm_resource_group.main.location}"
@@ -64,6 +65,7 @@ resource "azurerm_container_group" "main" {
   }
 }
 
+# Windows Container
 resource "azurerm_container_group" "windows" {
   name                = "aci-iis"
   location            = "${azurerm_resource_group.main.location}"
