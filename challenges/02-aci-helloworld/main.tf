@@ -1,3 +1,6 @@
+provider "azurerm" { 
+  }
+
 resource "azurerm_resource_group" "main" {
   name     = "${var.resourcegroup}"
   location = "${var.location}"
