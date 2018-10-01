@@ -27,6 +27,6 @@ variable "memory" {
   description = "The memory size of the container."
 }
 
-variable "myusername" {
+variable "username" {
   description = "The name of the user"
 }
