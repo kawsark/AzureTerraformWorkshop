@@ -63,3 +63,24 @@ resource "azurerm_container_group" "main" {
     environment = "testing"
   }
 }
+
+resource "azurerm_container_group" "windows" {
+  name                = "aci-iis"
+  location            = "${azurerm_resource_group.main.location}"
+  resource_group_name = "${azurerm_resource_group.main.name}"
+  ip_address_type     = "public"
+  dns_name_label      = "aci-iis-${var.username}"
+  os_type             = "windows"
+
+  container {
+    name   = "dotnetsample"
+    image  = "microsoft/iis"
+    cpu    = "0.5"
+    memory = "1.5"
+    port   = "80"
+  }
+
+  tags {
+    environment = "testing"
+  }
+}
