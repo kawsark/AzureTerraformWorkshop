@@ -26,7 +26,3 @@ variable "memory" {
   default     = "1.5"
   description = "The memory size of the container."
 }
-
-variable "username" {
-  description = "The name of the user"
-}
