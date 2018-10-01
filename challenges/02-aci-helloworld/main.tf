@@ -61,7 +61,7 @@ resource "azurerm_container_group" "main" {
 
   tags {
     environment = "${var.environment}"
-    owner = "${var.owner}
+    owner = "${var.owner}"
   }
 }
 
@@ -83,6 +83,6 @@ resource "azurerm_container_group" "windows" {
 
   tags {
     environment = "${var.environment}"
-    owner = "${var.owner}
+    owner = "${var.owner}"
   }
 }
